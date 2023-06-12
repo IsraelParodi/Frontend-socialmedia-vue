@@ -10,7 +10,9 @@
           deserunt, amet praesentium porro voluptatem dolorum qui.
         </p>
         <span class="font-bold"
-          >Don't have an account? <a class="underline" href="">Click here</a> to create one!</span
+          >Don't have an account?
+          <RouterLink to="/signup" class="underline" href="">Click here</RouterLink> to create
+          one!</span
         >
       </div>
     </div>

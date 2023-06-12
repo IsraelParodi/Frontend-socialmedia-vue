@@ -10,7 +10,8 @@
           deserunt, amet praesentium porro voluptatem dolorum qui.
         </p>
         <span class="font-bold"
-          >Already have an account? <a class="underline" href="">Click here</a> to log in!</span
+          >Already have an account?
+          <RouterLink to="/login" class="underline" href="">Click here</RouterLink> to log in!</span
         >
       </div>
     </div>
