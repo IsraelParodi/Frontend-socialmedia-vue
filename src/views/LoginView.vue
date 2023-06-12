@@ -11,8 +11,8 @@
         </p>
         <span class="font-bold"
           >Don't have an account?
-          <RouterLink to="/signup" class="underline" href="">Click here</RouterLink> to create
-          one!</span
+          <RouterLink :to="{ name: 'signup' }" class="underline" href="">Click here</RouterLink> to
+          create one!</span
         >
       </div>
     </div>

@@ -11,7 +11,8 @@
         </p>
         <span class="font-bold"
           >Already have an account?
-          <RouterLink to="/login" class="underline" href="">Click here</RouterLink> to log in!</span
+          <RouterLink :to="{ name: 'login' }" class="underline" href="">Click here</RouterLink> to
+          log in!</span
         >
       </div>
     </div>
