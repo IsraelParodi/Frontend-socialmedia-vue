@@ -1,6 +1,6 @@
 # frontend-social-media
 
-This template should help get you started developing with Vue 3 in Vite.
+Vue 3 project for a social media app.
 
 ## Recommended IDE Setup
 
