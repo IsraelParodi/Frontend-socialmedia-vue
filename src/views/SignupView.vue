@@ -20,7 +20,7 @@
       <div class="p-12 bg-white border-gray-200 rounded-lg">
         <form action="" class="space-y-6">
           <div>
-            <label for="">name</label>
+            <label for="">Name</label>
             <input
               type="text"
               placeholder="Your name"
