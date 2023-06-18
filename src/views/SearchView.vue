@@ -154,7 +154,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import PYMKComponent from '@/components/common/PYMKComponent.vue.js'
-import TrendsComponent from '@/components/common/TrendsComponent.vue.js'
+import PYMKComponent from '@/components/common/PYMKComponent.vue'
+import TrendsComponent from '@/components/common/TrendsComponent.vue'
 </script>
 <style scoped></style>

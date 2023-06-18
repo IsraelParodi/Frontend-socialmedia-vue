@@ -1,11 +1,8 @@
 import { type App } from 'vue'
-import axios, { type AxiosInstance } from 'axios'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 import { type AxiosResponse, type AxiosRequestConfig } from 'axios'
 import JwtService from './JwtService'
-
-interface VueInstanceWithAxios extends App<Element> {
-  axios: AxiosInstance
-}
 
 /**
  * @description service to call HTTP request via Axios
@@ -14,16 +11,16 @@ class ApiService {
   /**
    * @description property to share vue instance
    */
-  public static vueInstance: App & { axios: AxiosInstance }
+  public static vueInstance: App
 
   /**
    * @description initialize vue axios
    */
   public static init(app: App<Element>) {
-    ApiService.vueInstance = app as VueInstanceWithAxios
-    ApiService.vueInstance.use(axios)
+    ApiService.vueInstance = app
+    ApiService.vueInstance.use(VueAxios, axios)
     ApiService.setHeader()
-    ApiService.vueInstance.axios.defaults.baseURL = process.env.VUE_APP_API_URL
+    ApiService.vueInstance.axios.defaults.baseURL = 'http://localhost:8000'
   }
 
   /**
@@ -57,7 +54,7 @@ class ApiService {
     return ApiService.vueInstance.axios.get(`${resource}/${slug}`)
   }
 
-  public static all(resource: string, slug = '' as string): Promise<AxiosResponse> {
+  public static all(resource: string): Promise<AxiosResponse> {
     return ApiService.vueInstance.axios.get(`${resource}`)
   }
 
