@@ -64,10 +64,12 @@ class ApiService {
    * @param params: AxiosRequestConfig
    * @returns Promise<AxiosResponse>
    */
-  public static post(resource: string, params: AxiosRequestConfig): Promise<AxiosResponse> {
+  public static post(resource: string, params: unknown): Promise<AxiosResponse> {
     return ApiService.vueInstance.axios.post(`${resource}`, params, {
       headers: {
-        'Content-Type': 'application/json;charset=UTF-8',
+        // Use the commented line if you want to wrap your params with a key called data
+        // 'Content-Type': 'application/json;charset=UTF-8',
+        'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
       }
     })

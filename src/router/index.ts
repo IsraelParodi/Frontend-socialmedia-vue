@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { SignupView, LoginView, HomeView, FeedView, MessagesView, SearchView } from '../views/index'
 
-const router = createRouter({
+export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {

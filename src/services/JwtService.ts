@@ -1,4 +1,5 @@
-const ID_TOKEN_KEY = 'id_token' as string
+const ID_TOKEN_KEY = 'user.access' as string
+const ID_TOKEN_REFRESH_KEY = 'user.refresh' as string
 
 /**
  * @description get token form localStorage
@@ -16,10 +17,18 @@ export const saveToken = (token: string): void => {
 }
 
 /**
+ * @description save token refresh into localStorage
+ * @param token: string
+ */
+export const saveTokenRefresh = (token: string): void => {
+  window.localStorage.setItem(ID_TOKEN_REFRESH_KEY, token)
+}
+
+/**
  * @description remove token form localStorage
  */
 export const destroyToken = (): void => {
   window.localStorage.removeItem(ID_TOKEN_KEY)
 }
 
-export default { getToken, saveToken, destroyToken }
+export default { getToken, saveToken, saveTokenRefresh, destroyToken }

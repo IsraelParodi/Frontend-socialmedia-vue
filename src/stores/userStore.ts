@@ -3,13 +3,16 @@ import JwtService from '@/services/JwtService'
 import type { AxiosResponse } from 'axios'
 import { defineStore } from 'pinia'
 
-interface User {
+export interface User {
   isAuthenticated: boolean
-  id: any
-  name: any
-  email: any
-  access: any
-  refresh: any
+  id: string
+  name: string
+  email: string
+  access: string
+  refresh: string
+  isActive: boolean
+  isStaff: boolean
+  isSuperUser: boolean
 }
 
 export const useUserStore = defineStore({
@@ -28,12 +31,12 @@ export const useUserStore = defineStore({
 
   actions: {
     initStore() {
-      if (localStorage.getItem('user.acess')) {
-        this.user.access = localStorage.getItem('user.access')
-        this.user.refresh = localStorage.getItem('user.refresh')
-        this.user.id = localStorage.getItem('user.id')
-        this.user.name = localStorage.getItem('user.name')
-        this.user.email = localStorage.getItem('user.email')
+      if (localStorage.getItem('user.access')) {
+        this.user.access = localStorage.getItem('user.access') || ''
+        this.user.refresh = localStorage.getItem('user.refresh') || ''
+        this.user.id = localStorage.getItem('user.id') || ''
+        this.user.name = localStorage.getItem('user.name') || ''
+        this.user.email = localStorage.getItem('user.email') || ''
         this.user.isAuthenticated = true
 
         this.refreshToken()
@@ -47,7 +50,8 @@ export const useUserStore = defineStore({
       this.user.refresh = data.refresh
       this.user.isAuthenticated = true
 
-      localStorage.setItem('user.access', data.access)
+      JwtService.saveToken(data.access)
+      ApiService.setHeader()
       localStorage.setItem('user.refresh', data.refresh)
     },
     async refreshToken() {
@@ -69,11 +73,11 @@ export const useUserStore = defineStore({
     },
     removeToken() {
       console.log('Remove token')
-      this.user.access = null
-      this.user.refresh = null
-      this.user.id = null
-      this.user.name = null
-      this.user.email = null
+      this.user.access = ''
+      this.user.refresh = ''
+      this.user.id = ''
+      this.user.name = ''
+      this.user.email = ''
       this.user.isAuthenticated = false
 
       localStorage.removeItem('user.access')
@@ -87,6 +91,8 @@ export const useUserStore = defineStore({
       this.user.id = user.id
       this.user.name = user.name
       this.user.email = user.email
+      this.user.access = JwtService.getToken() || ''
+      this.user.refresh = localStorage.getItem('user.refresh') || ''
 
       localStorage.setItem('user.id', user.id)
       localStorage.setItem('user.name', user.name)

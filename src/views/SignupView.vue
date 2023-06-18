@@ -70,11 +70,12 @@
 <script setup lang="ts">
 import ApiService from '@/services/ApiService'
 import { useToastStore } from '@/stores/toastStore'
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
+import { router } from '@/router/index'
 
 const toastStore = useToastStore()
 
-const form = ref({
+let form = reactive({
   email: '',
   name: '',
   password1: '',
@@ -86,19 +87,20 @@ const errors = ref<string[]>([])
 async function submitForm() {
   errors.value = []
 
-  if (form.value.name === '') errors.value.push('Your name is missing')
-  if (form.value.email === '') errors.value.push('Your email is missing')
-  if (form.value.password1 === '') errors.value.push('Your password is missing')
-  if (form.value.password1 !== form.value.password2)
-    errors.value.push('Your password does not match')
+  if (form.name === '') errors.value.push('Your name is missing')
+  if (form.email === '') errors.value.push('Your email is missing')
+  if (form.password1 === '') errors.value.push('Your password is missing')
+  if (form.password1 !== form.password2) errors.value.push('Your password does not match')
+  if (form.password1.length < 8) errors.value.push('Your password should have at least 8 letters')
   if (errors.value.length === 0) {
     try {
-      const response = await ApiService.post('/api/signup/', { data: form })
+      const response = await ApiService.post('/api/signup/', form)
       console.log(response)
 
       if (response.data.status === 'success') {
         toastStore.showToast(5000, 'The user is registered. Please log in', 'bg-emerald-500')
         resetForm()
+        router.push('/login')
       } else {
         toastStore.showToast(5000, 'Something went wrong. Please try again', 'bg-red-500')
       }
@@ -109,7 +111,7 @@ async function submitForm() {
 }
 
 function resetForm() {
-  form.value = {
+  form = {
     email: '',
     name: '',
     password1: '',
